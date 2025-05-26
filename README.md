@@ -70,7 +70,7 @@ A context-aware PDF chatbot that uses **retrieval-augmented generation (RAG)** w
 - **Follow-up Question Handling**: Rewrites vague questions using chat history.
 
 ---
-
+**In case, the ipynb file named RAG_chatbot does not render on github, please open it using this colab link below**
 ## Demo (Colab)
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/10hx93LWFNTWwu1306h5x0Kv2IEYZnUju?usp=sharing)
