@@ -1,4 +1,64 @@
-# Fashion-MNIST Classification using ResNet50
+# 1. BERT-Based Text Classification for Multi-Class Dataset (43 Categories)
+
+This is an implementation of fine-tuning a BERT model for text classification using a dataset with 43 classes.
+
+---
+
+## Dataset used
+
+- Input file: `train.csv`
+- Columns used:
+  - `Text`: raw textual input
+  - `Category`: target class
+- Total classes: **43**
+- Preprocessed using lemmatization, stop-word removal, punctuation stripping, and lowercasing.
+
+---
+
+## Model used
+
+- Base model: `bert-base-uncased` from Hugging Face Transformers
+- Tokenizer: `BertTokenizer` with max length of 256
+- Preprocessing:
+  - Lowercasing
+  - Removal of punctuation
+  - Stop-word removal (`nltk`)
+  - Lemmatization (`WordNetLemmatizer`)
+
+---
+
+## Training Details
+
+- Framework: Hugging Face `Trainer`
+- Split: 80% train / 20% validation
+- Epochs: `3`
+- Batch size: `8` (reduced to prevent Colab OOM errors)
+- Evaluation: Performed after every epoch
+- Metrics: Accuracy, Precision, Recall, F1 Score
+
+---
+
+## Final Results
+
+- **Validation Accuracy:** `0.8707` (87.07%)
+- **Model saved** in `bert-finetuned/` directory
+- Tokenizer also saved for inference
+
+---
+
+## Common Issues Faced and Fixes
+
+### 1.  Colab RAM Crash (Out of Memory)
+**Fix:**
+- Reduced `max_len` to `256`
+- Reduced `per_device_train_batch_size` to `8`
+
+### 2. Weights & Biases API Key Prompt
+**Fix:** disabled it by importing os 
+
+---
+
+# 2. Fashion-MNIST Classification using ResNet50
 
 This project uses **transfer learning** with a pre-trained **ResNet50** convolutional neural network to classify images from the [Fashion-MNIST dataset](https://drive.google.com/drive/folders/1qZNwYOW53GZYZjpmsSpZMBNh1PEQumnb?usp=sharing) into 10 categories of clothing and accessories.
 It explores key deep learning concepts including transfer learning, freezing layers, fine-tuning, and data augmentation.
@@ -64,9 +124,7 @@ Each image is a **28x28 grayscale image**.
 
 ---
 
-
-
-# RAG Chatbot with Groq API + Agentic Architecture
+# 3. RAG Chatbot with Groq API + Agentic Architecture
 
 This is a context-aware PDF chatbot that uses **retrieval-augmented generation (RAG)** with **open-source LLMs via Groq**.
 It uses **FAISS** for chunk retrieval and the **Groq API** to generate responses from open-source LLMs.
