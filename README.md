@@ -56,6 +56,8 @@ This is an implementation of fine-tuning a BERT model for text classification us
 ### 2. Weights & Biases API Key Prompt
 **Fix:** disabled it by importing os 
 
+### [Colab Notebook Link](https://colab.research.google.com/drive/1RatBCdqygRkc_bTMfUhVVYHiBpFNVdCo?usp=sharing)
+
 ---
 
 # 2. Fashion-MNIST Classification using ResNet50
