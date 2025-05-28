@@ -22,18 +22,18 @@ Each image is a **28x28 grayscale image**.
 
 ## Workflow Summary
 
-- 1. **Preprocessing**
+- **Preprocessing**
      - images of the given dataset(28 x 28, grayscale) resized to (224 X 224, RGB)
      - Normalized pixel values to [0,1] (dividing by 255.0)
      - One-hot encoding for labels
-- 2. Base Model : **ResNet50**
+- Base Model : **ResNet50**
      - pretrained on ImageNet
      - Top layers removed
      - Custom layers added for clothing classification (Dense, Dropout, Softmax)
-- 3. **Training**
+- **Training**
      - First trained with frozen ResNet50 layers( only tarined custom head)
      - Later, fine tuned last 40 layers with a lower learning late(1e-4)
-- 4. **Evaluation**
+- **Evaluation**
      - Achieved **94%** accuracy on validation set
 
 ---
@@ -68,31 +68,51 @@ Each image is a **28x28 grayscale image**.
 
 # RAG Chatbot with Groq API + Agentic Architecture
 
-A context-aware PDF chatbot that uses **retrieval-augmented generation (RAG)** with **open-source LLMs via Groq**. Supports:
+This is a context-aware PDF chatbot that uses **retrieval-augmented generation (RAG)** with **open-source LLMs via Groq**.
+It uses **FAISS** for chunk retrieval and the **Groq API** to generate responses from open-source LLMs.
+
+Supports:
 - FAISS-based semantic search
 - Follow-up question rewriting
 - Agent-based processing (extract → synthesize → answer)
 - History-aware multi-turn conversations
 
 ---
+**(**IMP**)In case, the ipynb file named RAG_chatbot does not render on github, please open it using this colab link below**
+## Demo (Colab)
 
-## Features
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/10hx93LWFNTWwu1306h5x0Kv2IEYZnUju?usp=sharing)
+
+## PDF used for training and testing this chatbot : PP-001-Space.pdf (uploaded separately in this repository by this name) 
+
+---
+## Workflow summary
 
 - **PDF Ingestion**: Extracts and chunks readable content from PDFs.
-- **Vector Search**: Uses `sentence-transformers` + `FAISS` for fast retrieval.
+- **Vector Search**: Uses `sentence-transformers` + `FAISS` for fast retrieval by creating embeddings.
 - **Open-Source LLMs**: Uses `llama3-8b-8192` or `mixtral` models via Groq API.
-- **Agentic Pipeline**:
+- **Implementing an Agentic Architecture** with:
   - `InfoExtractionAgent` → pulls key facts
   - `SynthesisAgent` → organizes knowledge
   - `QueryAgent` → answers the user’s question
 - **Follow-up Question Handling**: Rewrites vague questions using chat history.
 
 ---
-**In case, the ipynb file named RAG_chatbot does not render on github, please open it using this colab link below**
-## Demo (Colab)
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/10hx93LWFNTWwu1306h5x0Kv2IEYZnUju?usp=sharing)
+## References/ External Resources
+  - [Groq API](https://console.groq.com)
+  - [sentence-transformers](https://www.sbert.net/)
+  - [FAISS-Facebook AI Similarity Search](https://github.com/facebookresearch/faiss)
+  - [PyMuPDF](https://github.com/pymupdf/PyMuPDF)
+  - [Agentic RAG concept](https://docs.llamaindex.ai/en/stable/examples/agentic/)
 
 ---
+## Error Handling and Troubleshooting
+- **FAISS returning just letters like 'e' or 's'(no related text)**
+  -Fix : ensured chunk_texts = chunks.copy() was right after chunking, before building the FAISS index. The problem was 
+         maybe chunk_texts didnt match embedded chunks.
+- **GitHub showing "invalid notebook" or metadata error** : wasnt able to fix this so uploaded the notebook link in the 
+                                                            README file
+- **Same answer even with history aware chat**
+   Fix : Rewriting vague questions using chat history solved this.
 
-
+---
