@@ -1,6 +1,7 @@
 # Fashion-MNIST Classification using ResNet50
 
-This project uses **transfer learning** with a pre-trained **ResNet50** convolutional neural network to classify images from the [Fashion-MNIST dataset](https://github.com/zalandoresearch/fashion-mnist) into 10 categories of clothing and accessories.
+This project uses **transfer learning** with a pre-trained **ResNet50** convolutional neural network to classify images from the [Fashion-MNIST dataset](https://drive.google.com/drive/folders/1qZNwYOW53GZYZjpmsSpZMBNh1PEQumnb?usp=sharing) into 10 categories of clothing and accessories.
+It explores key deep learning concepts including transfer learning, freezing layers, fine-tuning, and data augmentation.
 
 ## Dataset
 
@@ -12,26 +13,43 @@ The dataset consists of:
 Each image is a **28x28 grayscale image**.
 
 ---
+## Setup steps for local execution
 
-## Model
+### Environment
+- Python 3.8+
+- Tensorflow 2.12+
+- Numpy, matplotlib
 
-We used **ResNet50**, a deep residual network pre-trained on ImageNet, and adapted it to work with Fashion-MNIST by:
+## Workflow Summary
 
-- Resizing input images to 224x224 (to match ResNet’s input size)
-- Converting grayscale to RGB
-- Freezing base layers initially, then fine-tuning
-- Adding custom dense output layers
+- 1. **Preprocessing**
+     - images of the given dataset(28 x 28, grayscale) resized to (224 X 224, RGB)
+     - Normalized pixel values to [0,1] (dividing by 255.0)
+     - One-hot encoding for labels
+- 2. Base Model : **ResNet50**
+     - pretrained on ImageNet
+     - Top layers removed
+     - Custom layers added for clothing classification (Dense, Dropout, Softmax)
+- 3. **Training**
+     - First trained with frozen ResNet50 layers( only tarined custom head)
+     - Later, fine tuned last 40 layers with a lower learning late(1e-4)
+- 4. **Evaluation**
+     - Achieved **94%** accuracy on validation set
 
 ---
-
-## Results
-
-- **Test accuracy:** 94%
-- Visualizations showed the model correctly classifying most items with confidence
-- Used early stopping and fine-tuning for better generalization
+## Refrences and External Resources
+  - [Tensorflow Transfer Learning Docs](https://www.tensorflow.org/tutorials/images/transfer_learning)
+  - [Keras Applications: ResNet50](https://keras.io/api/applications/resnet/#resnet50-function)
+  - StackOverflow (error-specific help)
+           
+---
+## Error Handling and Troubleshooting
+  - **RAM Crash** in colab session
+    Fix : Switched runtime to GPU, Reduced Batch size temporarily to lessen memory load.
+  - Model File(.keras) was too large to upload on GitHub directly, so instead uploaded the model and google drive and gave a 
+    link in this readme file below.
 
 ---
-
 ## Files
 
 - `Fashion_MNIST_ResNet50_TransferLearning.ipynb` — Full code notebook
